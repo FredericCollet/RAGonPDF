@@ -1,0 +1,19 @@
+[2025-04-10 18:40:23] ⚠️ 1705 FIRMADO - NORMA ALICIA SANCHEZ MORALES.pdf est vide ou illisible.
+[2025-04-10 18:40:25] 📐 Embeddings shape pour CT-LALO-DEPTO 1704 final.pdf : (17, 384)
+[2025-04-10 18:40:25] 📄 CT-LALO-DEPTO 1704 final.pdf : texte segmenté et indexé.
+[2025-04-10 18:40:30] 📐 Embeddings shape pour F-PCV-LALO-DEPARTAMENTO-1703.pdf : (82, 384)
+[2025-04-10 18:40:30] 📄 F-PCV-LALO-DEPARTAMENTO-1703.pdf : texte segmenté et indexé.
+[2025-04-10 18:40:30] ⚠️ LALO CONTRATO 1710 Rpdf.pdf est vide ou illisible.
+[2025-04-10 18:40:35] 📐 Embeddings shape pour PCV-LALO- MON-1701.pdf : (81, 384)
+[2025-04-10 18:40:35] 📄 PCV-LALO- MON-1701.pdf : texte segmenté et indexé.
+[2025-04-10 18:40:39] 📐 Embeddings shape pour PCV-LALO-DEPTO 1702.pdf : (82, 384)
+[2025-04-10 18:40:39] 📄 PCV-LALO-DEPTO 1702.pdf : texte segmenté et indexé.
+[2025-04-10 18:40:44] 📐 Embeddings shape pour PCV-LALO-DEPTO 1708.pdf : (83, 384)
+[2025-04-10 18:40:44] 📄 PCV-LALO-DEPTO 1708.pdf : texte segmenté et indexé.
+[2025-04-10 18:40:50] 📐 Embeddings shape pour PCV-LALO-DEPTO-1711 MSEA (2).pdf : (83, 384)
+[2025-04-10 18:40:50] 📄 PCV-LALO-DEPTO-1711 MSEA (2).pdf : texte segmenté et indexé.
+[2025-04-10 18:40:55] 📐 Embeddings shape pour PCV-LALO-DEPTO-ACV-1704.pdf : (84, 384)
+[2025-04-10 18:40:55] 📄 PCV-LALO-DEPTO-ACV-1704.pdf : texte segmenté et indexé.
+[2025-04-10 18:41:00] 📐 Embeddings shape pour R-PCV-LALO-DEPARTAMENTO-1703.pdf : (82, 384)
+[2025-04-10 18:41:00] 📄 R-PCV-LALO-DEPARTAMENTO-1703.pdf : texte segmenté et indexé.
+[2025-04-10 18:41:01] ✅ Indexation terminée et sauvegardée !

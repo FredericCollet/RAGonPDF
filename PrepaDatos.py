@@ -11,7 +11,7 @@ from datetime import datetime
 nltk.download('punkt_tab')
 
 # 📥 Dossier contenant les PDF
-INPUT_FOLDER = "C:/Users/fred_/OneDrive/ML/ML-LLM/CONTRATOS"
+INPUT_FOLDER = "C:/Users/fred_/OneDrive/ML/ML-LLM/CONTRATOS/JEUX_REDUIT"
 OUTPUT_FOLDER = "C:/users/fred_/OneDrive/ML/RAGonPDF/Text"
 INDEX_PATH = "C:/Users/fred_/OneDrive/ML/RAGonPDF/Index_faiss"
 LOG_FILE = "log.txt"
@@ -83,8 +83,6 @@ for root, dirs, files in os.walk(INPUT_FOLDER):
             except Exception as e:
                 log(f"❌ Erreur à l'ouverture de {filename} : {e}")
                 continue
-
-           
             
             # 📝 Extraction du texte
             doc = fitz.open(pdf_path)
@@ -130,9 +128,7 @@ for root, dirs, files in os.walk(INPUT_FOLDER):
             if chunk_embeddings.shape[0] == 0:
                 log(f"⚠️ Embeddings vides pour {filename}, fichier ignoré.")
                 continue
-                
-           
-           
+                      
             # ➕ Ajout à FAISS
             index.add(chunk_embeddings)
             
