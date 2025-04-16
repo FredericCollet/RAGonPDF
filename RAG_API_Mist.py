@@ -93,20 +93,7 @@ def rag_generate(request: QueryRequest):
     # 🚀 Appel à l'API locale Ollama pour générer une réponse
     print(f"Appel API locale Ollama ")
     
-    """
-    response = httpx.post(
-        "http://localhost:11434/api/generate",
-         json={"model": "mistral", "prompt": prompt},
-         timeout=10.0  # ← max 10 secondes d'attente
-    )
-
-
-    if response.status_code == 200:
-        generated_text = response.json()["response"]
-    else:
-        generated_text = "Erreur lors de la génération avec Ollama."
-
-    """
+   
     try:
         response = httpx.post(
             "http://localhost:11434/api/generate",
