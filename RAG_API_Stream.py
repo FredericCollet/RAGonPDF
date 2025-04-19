@@ -2,14 +2,18 @@ import os
 import faiss
 import pickle
 import httpx
+import json
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 from sentence_transformers import SentenceTransformer
+
 
 # 📍 Chemins des fichiers d'index
 INDEX_PATH = "C:/Users/fred_/OneDrive/ML/RAGonPDF/Index_faiss"
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 OLLAMA_URL = "http://192.168.1.123:11434"
+
 
 def check_ollama():
     try:
@@ -37,7 +41,7 @@ class QueryRequest(BaseModel):
 
 @app.get("/")
 def home():
-    return {"message": "Bienvenue sur l'API RAG avec Mistral 🔍 mod 01"}
+    return {"message": "Bienvenue sur l'API RAG avec Mistral 🔍 mod Stream"}
 
 @app.post("/search/")
 def search_documents(request: QueryRequest):
@@ -62,53 +66,49 @@ def search_documents(request: QueryRequest):
 
 @app.post("/rag/")
 def rag_generate(request: QueryRequest):
-    """ Recherche les passages pertinents et génère une réponse avec Mistral via Ollama. """
-    
-    # ⚠️ Vérifie que Ollama est actif
     if not check_ollama():
         return {
             "query": request.query,
             "documents": [],
             "generated_response": "Erreur : le serveur Ollama ne répond pas. Veuillez lancer 'ollama run mistral'."
         }
-    
+
     print(f"Ollama up and running")
-        
-    
-    # 🔍 Recherche des documents pertinents
+
+    # Recherche les documents
     search_results = search_documents(request)["results"]
-    
-    # 📜 Construction du prompt avec les passages récupérés
+
     context = "\n\n".join([f"Document: {res['filename']}\nTexte: {res['text']}" for res in search_results])
-    
     prompt = f"""
     Tu es un assistant intelligent. Réponds à la question suivante en utilisant uniquement les informations suivantes :
-    
+
     {context}
-    
+
     Question : {request.query}
     Réponse :
     """
-    
-    # 🚀 Appel à l'API locale Ollama pour générer une réponse
-    #print(f"Appel API locale Ollama ")
-    print(f"Appel API distante Ollama ")
-    
-   
+
+    print("Appel API distante Ollama...")
+
     try:
-        response = httpx.post(
-            #"http://localhost:11434/api/generate",
-            "http://192.168.1.123:11434/api/generate",
+        generated_text = ""
+        with httpx.stream(
+            "POST",
+            f"{OLLAMA_URL}/api/generate",
             json={"model": "mistral", "prompt": prompt},
-            timeout=10.0  # ← max 10 secondes d'attente
-        )
-        response.raise_for_status()
-        generated_text = response.json()["response"]
-    
+            timeout=None  # ← important : pas de timeout bloquant ici
+        ) as response:
+            response.raise_for_status()
+            for line in response.iter_lines():
+                if line:
+                    data = json.loads(line)
+                    generated_text += data.get("response", "")
+                    if data.get("done", False):
+                        break
+
     except Exception as e:
         generated_text = f"Erreur lors de la génération avec Ollama : {e}"
-        
-    
+
     return {
         "query": request.query,
         "documents": search_results,
