@@ -102,7 +102,10 @@ def rag_generate(request: QueryRequest):
             for line in response.iter_lines():
                 if line:
                     data = json.loads(line)
+                    generated_line =data.get("response", "")
                     generated_text += data.get("response", "")
+                    print(f"texte genere : ",generated_line)
+                    #print(f"texte genere : ",data)
                     if data.get("done", False):
                         break
 
