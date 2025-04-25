@@ -60,7 +60,7 @@ def search_documents(request: QueryRequest):
             "score": float(distances[0][i])
         })
 
-    print(f"Fin de la Search ....")
+    print(f"End of pdf search ....")
 
     return {"query": request.query, "results": results}
 
@@ -88,7 +88,7 @@ def rag_generate(request: QueryRequest):
     Réponse :
     """
 
-    print("Appel API distante Ollama...")
+    print(f"Call API distante Ollama wit query : {request.query}" )
 
     try:
         generated_text = ""
@@ -104,7 +104,7 @@ def rag_generate(request: QueryRequest):
                     data = json.loads(line)
                     generated_line =data.get("response", "")
                     generated_text += data.get("response", "")
-                    print(f"texte genere : ",generated_line)
+                    print(f"> ",generated_line)
                     #print(f"texte genere : ",data)
                     if data.get("done", False):
                         break
