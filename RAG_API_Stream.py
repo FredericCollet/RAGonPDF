@@ -80,7 +80,7 @@ def rag_generate(request: QueryRequest):
 
     context = "\n\n".join([f"Document: {res['filename']}\nTexte: {res['text']}" for res in search_results])
     prompt = f"""
-    Tu es un assistant intelligent. Réponds à la question suivante en utilisant uniquement les informations suivantes :
+    Eres un asistente inteligente. Responde a la siguiente pregunta utilizando únicamente la siguiente información:
 
     {context}
 
