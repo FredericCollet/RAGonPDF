@@ -40,6 +40,7 @@ def stream_ollama(message, history):
             response.raise_for_status()
             for line in response.iter_lines():
                 if line:
+                    print(f"🔹 {line}")  # ← utile pour debug
                     data = json.loads(line)
                     token = data.get("response", "")
                     stream_text += token
@@ -49,15 +50,7 @@ def stream_ollama(message, history):
     except Exception as e:
         yield f"❌ Erreur : {str(e)}"
 
-# 🧠 Interface Gradio en mode Chat
-chat = gr.ChatInterface(
-    fn=stream_ollama,
-    title="💬 Chat RAG + FAISS + Mistral",
-    description="Pose une question basée sur tes documents indexés.",
-    theme="soft",
-    fill_height=True,
-    chatbot=gr.Chatbot(show_copy_button=True),
-)
+chat = gr.ChatInterface(stream_ollama, title="La App Streaming Ollama")
 
-if __name__ == "__main__":
-    chat.launch(server_name="127.1.1.1", server_port=7860,share=True)
+#chat.launch(share=False)
+chat.launch(server_name="127.0.0.1", server_port=7860)

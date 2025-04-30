@@ -2,8 +2,8 @@ import gradio as gr
 import httpx
 import json
 
-#OLLAMA_URL = "http://192.168.1.123:11434"  # ← ajuste si besoin
-OLLAMA_URL = "http://192.168.1.73:11434" # PC_HENRI
+OLLAMA_URL = "http://192.168.1.123:11434"  # ← ajuste si besoin
+#OLLAMA_URL = "http://192.168.1.73:11434" # PC_HENRI
 
 def stream_ollama(prompt,histo):
     stream_text = ""
@@ -13,8 +13,8 @@ def stream_ollama(prompt,histo):
             "POST",
             f"{OLLAMA_URL}/api/generate",
             #json={"model": "mistral", "prompt": prompt},
-            #json={"model": "gemma3", "prompt": prompt},
-            json={"model": "llama2", "prompt": prompt},
+            json={"model": "gemma3", "prompt": prompt},
+            #json={"model": "llama2", "prompt": prompt},
             timeout=60.0
         ) as response:
             response.raise_for_status()
